@@ -5,11 +5,12 @@ const getProduct = (id, callback) => {
   id = parseInt(id)
   mongodb.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
     if (err) {
-      throw err;
+      console.log(err);
       callback(err);
     }
     client.db("checkout").collection("products").find({ productId: id }).toArray((err, item) => {
       if (err) {
+        console.log(err);
         callback(err);
       }
       callback(null, item);
@@ -23,15 +24,17 @@ const getNearbyStores = (id, zip, callback) => {
   zip = parseInt(zip);
   mongodb.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
     if (err) {
-      throw err;
+      console.log(err);
       callback(err);
     }
     client.db("checkout").collection("stores").find({ zip: { $gte: zip } }).sort({ zip: 1 }).limit(3).toArray((err, stores) => {
       if (err) {
+        console.log(err);
         callback(err);
       } else {
         client.db("checkout").collection("inventory").find({ productId: id }).toArray((err, inventory) => {
           if (err) {
+            console.log(err);
             callback(err)
           } else {
             stores.map(store => {
