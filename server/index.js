@@ -2,7 +2,7 @@ const newrelic = require('newrelic');
 
 /* eslint-disable no-console */
 const express = require('express');
-const cors = require('cors')
+// const cors = require('cors');
 
 const { getProductData,
   getStoreData,
@@ -25,11 +25,7 @@ app.use(express.json());
 //   next();
 // });
 
-app.get('/products/:id', cors(), (req, res) => {
-  if (req.params.id < 1 || req.params.id > 10000000) {
-    console.log('invalid product id')
-    res.status(404).send('Oops! Not a valid productId');
-  }
+app.get('/products/:id', (req, res) => {
   getProductData(req.params.id, (err, results) => {
     if (err) {
       res.status(500).send(err);
@@ -39,7 +35,7 @@ app.get('/products/:id', cors(), (req, res) => {
   });
 });
 
-app.get('/products/:id/stores/:zip', cors(), (req, res) => {
+app.get('/products/:id/stores/:zip', (req, res) => {
   getStoresData(req.params.id, req.params.zip , (err, results) => {
     if (err) {
       res.status(500).send(err);
