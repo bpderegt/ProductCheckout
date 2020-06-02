@@ -21,3 +21,7 @@ cd BrianSlimServer
 npm install
 
 npm start
+
+git config --global user.name "bpderegt"
+git config --global user.email "brian.deregt@gmail.com"
+git config --global user.password "balboa2020"

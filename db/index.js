@@ -1,6 +1,24 @@
 const mongodb = require("mongodb").MongoClient;
 let url = "mongodb://34.234.52.10:27017/checkout";
 
+// const getProduct = (id, callback) => {
+//   id = parseInt(id)
+//   mongodb.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+//     if (err) {
+//       console.log(err);
+//       callback(err);
+//     }
+//     client.db("checkout").collection("products").find({ productId: id }).toArray((err, item) => {
+//       if (err) {
+//         console.log(err);
+//         callback(err);
+//       }
+//       callback(null, item);
+//       client.close();
+//     });
+//   })
+// };
+
 const getProduct = (id, callback) => {
   id = parseInt(id)
   mongodb.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
@@ -8,12 +26,8 @@ const getProduct = (id, callback) => {
       console.log(err);
       callback(err);
     }
-    client.db("checkout").collection("products").find({ productId: id }).toArray((err, item) => {
-      if (err) {
-        console.log(err);
-        callback(err);
-      }
-      callback(null, item);
+    client.db("checkout").collection("products").find({ productId: id }).forEach(item => {
+      callback(null, [item]);
       client.close();
     });
   })
