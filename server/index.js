@@ -2,12 +2,13 @@ const newrelic = require('newrelic');
 
 /* eslint-disable no-console */
 const express = require('express');
-const { getProduct,
-  getStores,
-  postProduct,
-  putProduct,
-  deleteProduct
-} = require('./controller.js');
+
+const { getProductData,
+  getStoreData,
+  postProductData,
+  putProductData,
+  deleteProductData,
+} = require('./model.js');
 
 const app = express();
 const PORT = 8673;
@@ -18,17 +19,17 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
-// app.use((req, res, next) => {
-//   console.log(`Incoming ${req.method} request to ${req.path}`);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log(`Incoming ${req.method} request to ${req.path}`);
+  next();
+});
 
 app.get('/products/:id', (req, res) => {
   if (req.params.id < 1 || req.params.id > 10000000) {
     console.log('invalid product id')
     res.status(404).send('Oops! Not a valid productId');
   }
-  getProduct(req.params.id, (err, results) => {
+  getProductData(req.params.id, (err, results) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -38,7 +39,7 @@ app.get('/products/:id', (req, res) => {
 });
 
 app.get('/products/:id/stores/:zip', (req, res) => {
-  getStores(req.params.id, req.params.zip , (err, results) => {
+  getStoresData(req.params.id, req.params.zip , (err, results) => {
     if (err) {
       res.status(500).send(err);
     } else if (!results.length) {
@@ -51,7 +52,7 @@ app.get('/products/:id/stores/:zip', (req, res) => {
 
 // app.post('/products', (req, res) => {
 //   // console.log(req.query)
-//   postProduct(req.query, (err, succ) => {
+//   postProductData(req.query, (err, succ) => {
 //     if (err) {
 //       res.status(400).send('could not post query')
 //     } else {
@@ -61,7 +62,7 @@ app.get('/products/:id/stores/:zip', (req, res) => {
 // });
 
 // app.put('/products/:id', (req, res) => {
-//   putProduct(req.query, req.params.id, (err, succ) => {
+//   putProductData(req.query, req.params.id, (err, succ) => {
 //     if (err) {
 //       res.status(400).send('could not update entry')
 //     } else {
@@ -71,7 +72,7 @@ app.get('/products/:id/stores/:zip', (req, res) => {
 // });
 
 // app.delete('products/:id', (req, res) => {
-//   deleteProduct(req.params.id, (err, succ) => {
+//   deleteProductData(req.params.id, (err, succ) => {
 //     if (err) {
 //       res.status(400).send('could not delete')
 //     } else {

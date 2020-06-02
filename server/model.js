@@ -32,7 +32,6 @@ const postProductData = (q, callback) => {
 const putProductData = (q, id, callback) => {
   let product = stringQ(q);
   const query = `REPLACE INTO products VALUES (${id}, ${product})`;
-
   connection.query(query, (err, results) => {
     if (err) {
       callback(err)
@@ -43,14 +42,6 @@ const putProductData = (q, id, callback) => {
 
 const deleteProductData = (id, callback) => {
   console.log('delete')
-}
-
-const stringQ = (q) => {
-  let str = '';
-  for (let key in q) {
-    str += `"${q[key]}", `;
-  }
-  return str.substring(0, str.length - 2);
 }
 
 module.exports = {
