@@ -32,9 +32,6 @@ cd BrianSlimServer
 
 git pull origin master
 
-npm start
-
-
 lsof -i:8673
 
 kill -9
