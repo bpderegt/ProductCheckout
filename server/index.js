@@ -19,10 +19,10 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
-app.use((req, res, next) => {
-  console.log(`Incoming ${req.method} request to ${req.path}`);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(`Incoming ${req.method} request to ${req.path}`);
+//   next();
+// });
 
 app.get('/products/:id', (req, res) => {
   if (req.params.id < 1 || req.params.id > 10000000) {

@@ -22,6 +22,19 @@ npm install
 
 npm start
 
+git config --global credential.helper
 git config --global user.name "bpderegt"
 git config --global user.email "brian.deregt@gmail.com"
 git config --global user.password "balboa2020"
+git config --global credential.helper
+
+cd BrianSlimServer
+
+npm start
+
+
+lsof -i:8673
+
+kill -9
+
+npm start
