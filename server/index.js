@@ -2,6 +2,7 @@ const newrelic = require('newrelic');
 
 /* eslint-disable no-console */
 const express = require('express');
+const cors = require('cors')
 
 const { getProductData,
   getStoreData,
@@ -15,16 +16,16 @@ const PORT = 8673;
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 // app.use((req, res, next) => {
 //   console.log(`Incoming ${req.method} request to ${req.path}`);
 //   next();
 // });
 
-app.get('/products/:id', (req, res) => {
+app.get('/products/:id', cors(), (req, res) => {
   if (req.params.id < 1 || req.params.id > 10000000) {
     console.log('invalid product id')
     res.status(404).send('Oops! Not a valid productId');
@@ -38,7 +39,7 @@ app.get('/products/:id', (req, res) => {
   });
 });
 
-app.get('/products/:id/stores/:zip', (req, res) => {
+app.get('/products/:id/stores/:zip', cors(), (req, res) => {
   getStoresData(req.params.id, req.params.zip , (err, results) => {
     if (err) {
       res.status(500).send(err);

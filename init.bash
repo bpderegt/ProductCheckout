@@ -30,6 +30,8 @@ git config --global credential.helper
 
 cd BrianSlimServer
 
+git pull origin master
+
 npm start
 
 
