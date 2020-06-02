@@ -2,7 +2,7 @@ const newrelic = require('newrelic');
 
 /* eslint-disable no-console */
 const express = require('express');
-// const cors = require('cors');
+const morgan = require('morgan');
 
 const { getProductData,
   getStoreData,
@@ -16,14 +16,7 @@ const PORT = 8673;
 
 app.use(express.static('public'));
 app.use(express.json());
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-// app.use((req, res, next) => {
-//   console.log(`Incoming ${req.method} request to ${req.path}`);
-//   next();
-// });
+app.use(morgan('short'));
 
 app.get('/products/:id', (req, res) => {
   getProductData(req.params.id, (err, results) => {
