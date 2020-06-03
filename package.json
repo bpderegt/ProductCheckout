@@ -4,7 +4,7 @@
   "description": "",
   "main": "newrelic.js",
   "scripts": {
-    "start": "nohup node server/index.js",
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,7 +14,6 @@
     "express": "^4.17.1",
     "k6": "0.0.0",
     "mongodb": "^3.5.8",
-    "morgan": "^1.10.0",
     "newrelic": "^6.8.0",
     "nodemon": "^2.0.4"
   }
