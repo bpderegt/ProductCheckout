@@ -1,7 +1,7 @@
-const { getProduct, getNearbyStores } = require('../db/index.js');
+const index = require('../db/index.js');
 
 const getProductData = (id, callback) => {
-  getProduct(id, (err, product) => {
+  index.getProduct(id, (err, product) => {
     if (err) {
       callback(err);
     }
@@ -10,7 +10,7 @@ const getProductData = (id, callback) => {
 };
 
 const getStoreData = (id, zip, callback) => {
-  getNearbyStores(id, zip, (err, stores) => {
+  index.getNearbyStores(id, zip, (err, stores) => {
     if (err) {
       callback(err);
     }
@@ -19,35 +19,15 @@ const getStoreData = (id, zip, callback) => {
 };
 
 const postProductData = (q, callback) => {
-  let product = stringQ(q);
-  const query = `INSERT INTO products (productName, price, reviewCount, rating, themeName, themeImageUrl, featured, chokingHazard, productLimit, productImageUrl, productAvailabilityOnline) VALUES (${product})`;
-  connection.query(query, (err, results) => {
-    if (err) {
-      callback(err)
-    }
-    callback(null, results);
-  })
-}
 
-const putProductData = (q, id, callback) => {
-  let product = stringQ(q);
-  const query = `REPLACE INTO products VALUES (${id}, ${product})`;
-  connection.query(query, (err, results) => {
-    if (err) {
-      callback(err)
-    }
-    callback(null, results);
-  })
 }
 
 const deleteProductData = (id, callback) => {
-  console.log('delete')
 }
 
 module.exports = {
   getProductData,
   getStoreData,
   postProductData,
-  putProductData,
   deleteProductData
 };
